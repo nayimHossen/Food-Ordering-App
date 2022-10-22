@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser } from "../actions/userAction";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("currentUser")) {
+      navigate("/");
+    }
+  }, []);
   const {
     register,
     formState: { errors },
@@ -10,7 +20,12 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    const user = {
+      email: data.email,
+      password: data.password,
+    };
+
+    dispatch(loginUser(user));
   };
 
   return (
