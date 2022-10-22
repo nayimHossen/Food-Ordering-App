@@ -1,11 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "../actions/cartAction";
+import { addToCart, deleteFromCart } from "../actions/cartAction";
 
 const Cart = () => {
   const cartState = useSelector((state) => state.cartReducer);
   const dispatch = useDispatch();
-
   const cartItems = cartState.cartItems;
+
+  const subtotal = cartItems.reduce((x, item) => x + item.price, 0);
   return (
     <div className="container mx-auto px-5">
       <div className="grid grid-cols-1 md:grid-cols-2">
@@ -43,6 +44,7 @@ const Cart = () => {
                         )
                       }
                       className="btn btn-xs"
+                      max="10"
                     >
                       +
                     </button>
@@ -58,13 +60,23 @@ const Cart = () => {
                   </figure>
                 </div>
                 <div>
-                  <button className="btn btn-xs">Delete</button>
+                  <button
+                    onClick={() => dispatch(deleteFromCart(item))}
+                    className="btn btn-xs"
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             );
           })}
         </div>
-        <div>4</div>
+        <div className="text-center">
+          <h2 className="text-center text-2xl font-bold">
+            Subtotal: {subtotal}
+          </h2>
+          <button className="btn btn-primary">Pay Now</button>
+        </div>
       </div>
     </div>
   );

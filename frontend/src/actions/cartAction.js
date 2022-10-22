@@ -5,13 +5,23 @@ export const addToCart =
       _id: product._id,
       image: product.image,
       varient: varient,
-      quantity: quantity,
+      quantity: Number(quantity),
       prices: product.prices,
       price: product.prices[0][varient] * quantity,
     };
 
-    dispatch({ type: "ADD_TO_CART", payload: cartItem });
+    if (cartItem.quantity < 1) {
+      dispatch({ type: "DELETE_FROM_CART", payload: product });
+    } else {
+      dispatch({ type: "ADD_TO_CART", payload: cartItem });
+    }
 
     const cartItems = getState().cartReducer.cartItems;
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   };
+
+export const deleteFromCart = (product) => (dispatch, getState) => {
+  dispatch({ type: "DELETE_FROM_CART", payload: product });
+  const cartItems = getState().cartReducer.cartItems;
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+};
