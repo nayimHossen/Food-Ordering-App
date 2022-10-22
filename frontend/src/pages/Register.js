@@ -1,8 +1,11 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { registerUser } from "../actions/userAction";
 
 const Register = () => {
+  const dispatch = useDispatch();
   const {
     register,
     formState: { errors },
@@ -10,7 +13,13 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
+    const user = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    };
+
+    dispatch(registerUser(user));
   };
 
   return (
