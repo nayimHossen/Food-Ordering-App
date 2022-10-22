@@ -8,7 +8,7 @@ const finalReducer = combineReducers({
   getAllPizzasReducer: getAllPizzasReducer,
 });
 
-const initialState = { count: 1 };
+const initialState = {};
 const composeEnhancers = composeWithDevTools({});
 
 const store = createStore(
