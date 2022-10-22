@@ -1,10 +1,17 @@
 import React from "react";
 import { useState } from "react";
 import ProductDetailModal from "./ProductDetailModal";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "../actions/cartAction";
 
 const ProductCart = ({ product }) => {
-  const [quantiry, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(1);
   const [varient, setVariant] = useState("small");
+  const dispatch = useDispatch();
+
+  const addToCartItem = () => {
+    dispatch(addToCart(product, quantity, varient));
+  };
 
   return (
     <div className="card text-neutral-content shadow-sm hover:shadow-lg">
@@ -40,7 +47,7 @@ const ProductCart = ({ product }) => {
           <div>
             <p className="font-bold text-sm">Quantity</p>
             <select
-              value={quantiry}
+              value={quantity}
               onChange={(e) => {
                 setQuantity(e.target.value);
               }}
@@ -54,9 +61,11 @@ const ProductCart = ({ product }) => {
         </div>
         <div className="flex items-center justify-end pt-4">
           <button className="font-bold btn-sm">
-            Price: {product.prices[0][varient] * quantiry}
+            Price: {product.prices[0][varient] * quantity}
           </button>
-          <button className="btn btn-primary btn-sm">Add To Cart</button>
+          <button onClick={addToCartItem} className="btn btn-primary btn-sm">
+            Add To Cart
+          </button>
         </div>
         <ProductDetailModal product={product} />
       </div>
