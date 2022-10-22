@@ -14,7 +14,9 @@ const Navbar = () => {
         </div>
         <div>
           <ul className="flex gap-5">
-            <li className="font-bold">Login</li>
+            <li className="font-bold">
+              <Link to="/login">Login</Link>
+            </li>
             <li className="font-bold">
               <Link to="/cart">Cart{cartState.cartItems.length}</Link>
             </li>
