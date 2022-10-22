@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const cartState = useSelector((state) => state.cartReducer);
@@ -7,12 +8,16 @@ const Navbar = () => {
     <header className="shadow-md py-4">
       <nav className="flex items-center justify-between container mx-auto px-5">
         <div>
-          <h2 className="text-3xl font-bold">Pizza.</h2>
+          <h2 className="text-3xl font-bold">
+            <Link to="/">Pizza.</Link>
+          </h2>
         </div>
         <div>
           <ul className="flex gap-5">
             <li className="font-bold">Login</li>
-            <li className="font-bold">Cart{cartState.cartItems.length}</li>
+            <li className="font-bold">
+              <Link to="/cart">Cart{cartState.cartItems.length}</Link>
+            </li>
           </ul>
         </div>
       </nav>

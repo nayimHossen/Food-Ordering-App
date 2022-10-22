@@ -4,7 +4,7 @@ import ProductDetailModal from "./ProductDetailModal";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../actions/cartAction";
 
-const ProductCart = ({ product }) => {
+const ProductCard = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [varient, setVariant] = useState("small");
   const dispatch = useDispatch();
@@ -73,4 +73,4 @@ const ProductCart = ({ product }) => {
   );
 };
 
-export default ProductCart;
+export default ProductCard;

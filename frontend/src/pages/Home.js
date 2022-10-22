@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ProductCart from "../components/ProductCart";
+import ProductCard from "../components/ProductCard";
 import { getAllProduct } from "../actions/productActions";
 
 const Home = () => {
@@ -23,7 +23,7 @@ const Home = () => {
             <h2>something went wrong</h2>
           ) : (
             products?.products?.map((product) => (
-              <ProductCart key={product._id} product={product} />
+              <ProductCard key={product._id} product={product} />
             ))
           )}
         </div>
