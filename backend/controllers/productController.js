@@ -1,14 +1,21 @@
 const Product = require("../models/productModel");
 
-//GET ALL SERVICES
+//GET ALL PRODUCT
 exports.getAllProduct = async (req, res, next) => {
-  const productCount = await Product.countDocuments();
+  try {
+    const productCount = await Product.countDocuments();
 
-  const products = await Product.find();
+    const products = await Product.find();
 
-  res.status(200).json({
-    success: true,
-    products,
-    productCount,
-  });
+    return res.status(200).json({
+      success: true,
+      products,
+      productCount,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: error,
+    });
+  }
 };
