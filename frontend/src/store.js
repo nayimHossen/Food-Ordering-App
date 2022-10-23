@@ -5,12 +5,14 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { getAllProductReducer } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducer";
 import { registerUserReducer, loginUserReducer } from "./reducers/userReducer";
+import { placeOrderReducer } from "./reducers/orderReducer";
 
 const finalReducer = combineReducers({
   getAllProductReducer: getAllProductReducer,
   cartReducer: cartReducer,
   registerUserReducer: registerUserReducer,
   loginUserReducer: loginUserReducer,
+  placeOrderReducer: placeOrderReducer,
 });
 
 const cartItems = localStorage.getItem("cartItems")
