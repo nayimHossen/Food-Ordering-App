@@ -58,3 +58,21 @@ exports.orderPlace = async (req, res, next) => {
     });
   }
 };
+
+//GET USER ORDER
+exports.getUserOrders = async (req, res, next) => {
+  const { userId } = req.body;
+  try {
+    const orders = await Order.find({ userId: userId }).sort({ _id: -1 });
+
+    return res.status(200).json({
+      success: true,
+      orders,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: "something went wrong",
+    });
+  }
+};

@@ -2,8 +2,13 @@ import React from "react";
 import StripeCheckout from "react-stripe-checkout";
 import { useSelector, useDispatch } from "react-redux";
 import { placeOrder } from "../actions/orderAction";
+import Loading from "../components/Loading";
+import Success from "../components/Success";
+import Error from "../components/Error";
 
 const Checkout = ({ subtotal }) => {
+  const orderState = useSelector((state) => state.placeOrderReducer);
+  const { loading, error, success } = orderState;
   const dispatch = useDispatch();
   const tokenHandler = (token) => {
     console.log("checkout", token);
@@ -11,6 +16,9 @@ const Checkout = ({ subtotal }) => {
   };
   return (
     <div>
+      {loading && <Loading />}
+      {error && <Error error="something went wrong" />}
+      {success && <Success success="Order placed successfully" />}
       <StripeCheckout
         amount={subtotal * 100}
         shippingAddress

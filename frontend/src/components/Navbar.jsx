@@ -29,7 +29,7 @@ const Navbar = () => {
                   className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <a>Order</a>
+                    <Link to="/orders">Order</Link>
                   </li>
                   <li>
                     <Link to="" onClick={() => dispatch(logoutUser())}>
