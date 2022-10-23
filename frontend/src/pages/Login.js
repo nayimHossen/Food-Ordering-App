@@ -3,10 +3,14 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "../actions/userAction";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const loginState = useSelector((state) => state.loginUserReducer);
+  const { error, loading } = loginState;
 
   useEffect(() => {
     if (localStorage.getItem("currentUser")) {
@@ -33,6 +37,8 @@ const Login = () => {
       <div className="card w-96 bg-base-100 shadow-lg border-2">
         <div className="card-body">
           <h2 className="text-center text-2xl font-bold">Login</h2>
+          {loading && <Loading />}
+          {error && <Error error="Invalid cradintial" />}
           <form onSubmit={handleSubmit(onSubmit)}>
             {/* Email Input filed start */}
             <div className="form-control w-full max-w-xs">

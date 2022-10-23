@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { registerUser } from "../actions/userAction";
+import Loading from "../components/Loading";
+import Success from "../components/Success";
+import Error from "../components/Error";
 
 const Register = () => {
   const dispatch = useDispatch();
+  const registerState = useSelector((state) => state.registerUserReducer);
+  const { error, loading, success } = registerState;
   const {
     register,
     formState: { errors },
@@ -27,6 +32,9 @@ const Register = () => {
       <div className="card w-96 bg-base-100 shadow-xl border-2">
         <div className="card-body">
           <h2 className="text-center text-2xl font-bold">Registr</h2>
+          {loading && <Loading />}
+          {success && <Success success="User Register Successfull" />}
+          {error && <Error error="Email already in use" />}
           <form onSubmit={handleSubmit(onSubmit)}>
             {/* Name Input filed start */}
             <div className="form-control w-full max-w-xs">

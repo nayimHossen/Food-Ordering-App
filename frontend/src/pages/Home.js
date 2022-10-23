@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
 import { getAllProduct } from "../actions/productActions";
+import Spinner from "../components/Loading";
+import Error from "../components/Error";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -18,9 +20,9 @@ const Home = () => {
       <div className="container mx-auto px-5 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
           {loading ? (
-            <h2>Loading..</h2>
+            <Spinner />
           ) : error ? (
-            <h2>something went wrong</h2>
+            <Error error="something went wrong" />
           ) : (
             products?.products?.map((product) => (
               <ProductCard key={product._id} product={product} />
