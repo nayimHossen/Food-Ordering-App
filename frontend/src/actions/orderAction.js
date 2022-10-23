@@ -6,7 +6,7 @@ export const placeOrder = (token, subtotal) => async (dispatch, getState) => {
   const cartItems = getState().cartReducer.cartItems;
 
   try {
-    const response = await axios.post("/api/v1/orders/placeorder", {
+    const response = await axios.post("/api/v1/placeorder", {
       token,
       subtotal,
       currentUser,

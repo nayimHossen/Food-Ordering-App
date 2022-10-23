@@ -26,9 +26,10 @@ app.get("/", (req, res) => {
 //IMPORT ALL ROUTE
 const productRoute = require("./routes/productRoute");
 const userRoute = require("./routes/userRoute");
+const orderRoute = require("./routes/orderRoute");
 
 //CREATE ALL ROUTE
-app.use("/api/v1", productRoute, userRoute);
+app.use("/api/v1", productRoute, userRoute, orderRoute);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
