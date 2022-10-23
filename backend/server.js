@@ -1,9 +1,9 @@
 const express = require("express");
 const connectDatabase = require("./dbConaction.js");
-const dotenv = require("dotenv");
+require("dotenv").config({ path: "backend/.env" });
 const cors = require("cors");
 const app = express();
-const port = 5000;
+const port = process.env.PORT;
 
 app.use(express.json());
 app.use(cors());
@@ -15,9 +15,6 @@ process.on("uncaughtException", (error) => {
 
   process.exit(1);
 });
-
-//CONFIG
-dotenv.config({ path: "backend/.env" });
 
 //DATABASE CONNECTION
 connectDatabase();
