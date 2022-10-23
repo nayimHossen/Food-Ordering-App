@@ -1,3 +1,5 @@
+const Order = require("../models/orderModel");
+
 const { v4: uuidv4 } = require("uuid");
 const stripe = require("stripe")(
   "sk_test_51Lw6meD2yUHGRg6IaufzbCHjprQqT3inSvrA5ukZnT1MTAhB4XmwIolm41jgewuFoOfv6yV5pBXMgMfV6rBhEjMu00ShjWQZWc"
@@ -6,6 +8,7 @@ const stripe = require("stripe")(
 //GET ALL PRODUCT
 exports.orderPlace = async (req, res, next) => {
   const { token, subtotal, currentUser, cartItems } = req.body;
+  console.log(currentUser._id);
 
   try {
     const customer = await stripe.customers.create({
@@ -26,7 +29,26 @@ exports.orderPlace = async (req, res, next) => {
     );
 
     if (payment) {
-      res.send("payment done");
+      const newOrder = await Order.create({
+        name: currentUser.name,
+        email: currentUser.email,
+        userId: currentUser._id,
+        orderItems: cartItems,
+        orderAmount: subtotal,
+        shippingAddress: {
+          street: token.card.address_line1,
+          city: token.card.address_city,
+          country: token.card.address_country,
+          pincode: token.card.address_zip,
+        },
+        transactionId: payment.source.id,
+      });
+
+      return res.status(201).json({
+        success: true,
+        message: "Order is Complite",
+        newOrder,
+      });
     } else {
       res.send("payment faield");
     }
